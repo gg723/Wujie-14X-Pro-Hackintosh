@@ -1,0 +1,92 @@
+# 第三方组件与许可证
+
+本仓库的**文档与配置改动**（`config.plist` 的补丁、`SSDT-TPD0.dsl`、本 README 等）
+以 MIT 许可发布，见 `LICENSE`。
+
+`EFI/` 目录里打包的 kext / 驱动**版权归各自作者**，按各自许可证分发，本仓库不改变其许可。
+如果你是某个组件的作者并认为此处分发不妥，请开 issue，我会立刻移除。
+
+---
+
+## 一、Acidanthera 及通用 kext
+
+| 组件 | 版本 | 来源 | 许可证 |
+|---|---|---|---|
+| OpenCore (BOOTx64.efi / OpenCore.efi / Drivers / Tools) | 1.x | [acidanthera/OpenCorePkg](https://github.com/acidanthera/OpenCorePkg) | BSD-3-Clause |
+| Lilu | 1.7.3 | [acidanthera/Lilu](https://github.com/acidanthera/Lilu) | BSD-3-Clause |
+| VirtualSMC | 1.3.8 | [acidanthera/VirtualSMC](https://github.com/acidanthera/VirtualSMC) | BSD-3-Clause |
+| SMCBatteryManager | 1.3.8 | 同上（VirtualSMC 插件） | BSD-3-Clause |
+| AppleALC | 1.9.9 | [acidanthera/AppleALC](https://github.com/acidanthera/AppleALC) | BSD-3-Clause |
+| RestrictEvents | 1.1.7 | [acidanthera/RestrictEvents](https://github.com/acidanthera/RestrictEvents) | BSD-3-Clause |
+| AMFIPass | 1.4.1 | [dortania/AMFIPass](https://github.com/dortania/AMFIPass) | MIT |
+| AppleMCEReporterDisabler | 1.2 | [acidanthera/bugtracker](https://github.com/acidanthera/bugtracker) | BSD-3-Clause |
+| CPUFriend / SSDT 等 | — | 同上项目 | BSD-3-Clause |
+
+## 二、网络
+
+| 组件 | 版本 | 来源 | 许可证 |
+|---|---|---|---|
+| itlwm | 2.3.0 | [OpenIntelWireless/itlwm](https://github.com/OpenIntelWireless/itlwm) | GPL-2.0 |
+| RealtekRTL8111 | 3.0.4 | [Mieze/RTL8111_driver_for_OS_X](https://github.com/Mieze/RTL8111_driver_for_OS_X) | GPL-2.0 |
+
+> `itlwm` 需要另装 **HeliPort.app**（GPL-2.0，不同仓库
+> [OpenIntelWireless/HeliPort](https://github.com/OpenIntelWireless/HeliPort)）。
+> 本仓库不附带 HeliPort，请自行下载。
+
+## 三、蓝牙（Intel AX210）
+
+| 组件 | 版本 | 来源 | 许可证 |
+|---|---|---|---|
+| IntelBluetoothFirmware | 2.5.3 | [OpenIntelWireless/IntelBluetoothFirmware](https://github.com/OpenIntelWireless/IntelBluetoothFirmware) | GPL-2.0 |
+| IntelBTPatcher | 2.5.3 | 同上 | GPL-2.0 |
+| BlueToolFixup | 2.7.2 | [acidanthera/BrcmPatchRAM](https://github.com/acidanthera/BrcmPatchRAM) | BSD-3-Clause |
+
+> `IntelBluetoothFirmware` 内含 Intel 蓝牙固件，按 Intel 的固件再分发条款使用。
+
+## 四、输入
+
+| 组件 | 版本 | 来源 | 许可证 |
+|---|---|---|---|
+| VoodooI2C | 2.9.1 | [VoodooI2C/VoodooI2C](https://github.com/VoodooI2C/VoodooI2C) | GPL-2.0 |
+| VoodooI2CHID | 1 | 同上 | GPL-2.0 |
+| VoodooPS2Controller | 2.3.8 | [acidanthera/VoodooPS2](https://github.com/acidanthera/VoodooPS2) | BSD-3-Clause |
+
+## 五、GPU 相关（来自 nullarc）
+
+| 组件 | Bundle ID | 说明 |
+|---|---|---|
+| PhxBringup | `org.drip.PhxBringup` | 上电与 MES 调度器初始化 |
+| PhxGpioProbe | `com.phx.PhxGpioProbe` | GPIO 探测辅助 |
+| PhxXhciKick | `com.phx.PhxXhciKick` | xHCI 辅助 |
+| SimpleHDA | `cn.laobamac.SimpleHDA` | HDA 简化注入（非 nullarc） |
+
+`PhxBringup` 等来自 [luuumi-dev/nullarc](https://github.com/luuumi-dev/nullarc)。
+按该项目的 `LICENSE`：`src/phxbringup`、`tools/*` 以及为 nullarc 编写的其余代码为
+**MIT（或按其选择 GPL-2.0-only）**。
+
+### 本仓库**没有**包含的部分
+
+以下组件按 nullarc 的许可证**不允许或不宜**由本仓库再分发，故一律未打包：
+
+| 组件 | 许可证 | 原因 |
+|---|---|---|
+| `PhxAccel.kext`（Metal 加速本体） | **PolyForm Noncommercial 1.0.0** | 仅限非商业用途，且规定再分发必须同时携带原许可与如下声明 |
+
+```
+Required Notice: Copyright (c) 2026 NullMoth Systems (https://nullmothsystems.com)
+```
+
+| `NVMTLDriver.bundle` / `libnvmtl_translate.dylib` | LGPL-3.0-or-later（源自 metal2vulkan） |
+| Mesa RADV 相关 `.dylib` | MIT |
+| LLVM / zstd（插件包内） | Apache-2.0 WITH LLVM-exception / BSD |
+| AMD GPU 微码（`gpu/fw/*.bin`） | `LICENSE.amdgpu`：**仅允许二进制形式再分发**，禁止反向工程 |
+
+**所以：想用 GPU 加速，请自行到上游获取完整包并按上游文档安装。**
+本仓库只提供「安装位置与依赖关系」的说明，不提供加速层的二进制。
+
+---
+
+## 六、其它
+
+- 版本号取自各 `Info.plist` 的 `CFBundleVersion`，可能落后于上游最新版。
+- 固件/微码文件名与来源见上游 `THIRD_PARTY_NOTICES.md`。
