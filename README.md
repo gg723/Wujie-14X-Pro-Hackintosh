@@ -1,5 +1,7 @@
 # 无界 14X Pro (Wujie 14X Pro) Hackintosh — OpenCore EFI
 
+> **声明：本项目仅供参考，不保证能完全使用。由 DeepSeek-V4F 生成。**
+
 机械革命 **无界 14X Pro** / AMD Ryzen 7 H255 + Radeon 780M 的黑苹果 EFI，
 系统为 **macOS Tahoe 26**，机型伪装 `MacBookPro16,1`。
 
